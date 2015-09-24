@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jackie.mediapreview.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+    <ImageView
+        android:id="@+id/video_icon_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/btn_video"
+        android:visibility="gone"
+        android:scaleType="centerInside"/>
+
+    <CheckBox
+        android:id="@+id/select_image_right"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:button="@drawable/checkbox_4_pic"
+        android:layout_alignParentRight="true"/>
+
+    <LinearLayout
+        android:id="@+id/duration_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#22000000">
+
+        <TextView
+            android:id="@+id/duration_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_gravity="right"
+            android:gravity="right"/>
+    </LinearLayout>
+
+</com.jackie.mediapreview.widget.SquareRelativeLayout>

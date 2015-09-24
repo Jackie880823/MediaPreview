@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_content_bg">#e0e0e0</color>
+    <color name="tab_color_press1">#66ccff</color>
+    <color name="drawer_arrow_color">#000000</color>
+</resources>
