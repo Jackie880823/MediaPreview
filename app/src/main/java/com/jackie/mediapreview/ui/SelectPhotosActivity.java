@@ -12,10 +12,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.jackie.mediapreview.R;
 import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.interfaces.SelectImageUirChangeListener;
+import com.jackie.mediapreview.interfaces.ImageStateChangeListener;
+import com.jackie.mediapreview.utils.ActionUtil;
 import com.jackie.mediapreview.utils.MessageUtil;
 import com.jackie.mediapreview.widget.DrawerArrowDrawable;
 
@@ -50,6 +52,12 @@ public class SelectPhotosActivity extends BaseActivity {
      * 选择多张图片标识{@value true}可以多张选择图片，{@value false}只允许选择一张图
      */
     private boolean multi;
+
+    /**
+     * 启动此Activity的Action
+     */
+    private String action;
+
     /**
      * 请求图片Uir用Universal Image Loader库处理标识
      */
@@ -77,7 +85,7 @@ public class SelectPhotosActivity extends BaseActivity {
      */
     private AlertDialog selectVideoDialog = null;
 
-    private SelectImageUirChangeListener listener = new SelectImageUirChangeListener() {
+    private ImageStateChangeListener listener = new ImageStateChangeListener() {
 
         PreviewFragment previewFragment;
 
@@ -182,8 +190,13 @@ public class SelectPhotosActivity extends BaseActivity {
     @Override
     protected void initTitleBar() {
         super.initTitleBar();
-        rightButton.setImageResource(R.drawable.btn_done);
         leftButton.setImageResource(R.drawable.text_title_seletor);
+        if (ActionUtil.isSelected(action)) {
+            rightButton.setVisibility(View.VISIBLE);
+            rightButton.setImageResource(R.drawable.btn_done);
+        } else {
+            rightButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
@@ -191,10 +204,14 @@ public class SelectPhotosActivity extends BaseActivity {
      */
     @Override
     protected void setTitle() {
-        if (useVideo) {
-            tvTitle.setText(R.string.select_photos_or_video);
+        if (ActionUtil.isSelected(action)) {
+            if (useVideo) {
+                tvTitle.setText(R.string.select_photos_or_video);
+            } else {
+                tvTitle.setText(R.string.title_select_photos);
+            }
         } else {
-            tvTitle.setText(R.string.title_select_photos);
+            tvTitle.setText("preview Photos or Videos");
         }
     }
 
@@ -220,17 +237,19 @@ public class SelectPhotosActivity extends BaseActivity {
             }
             isPreview = false;
         } else {
-            Intent intent = new Intent();
-            ArrayList<Uri> uriList = new ArrayList<>();
-            for (MediaData mediaData : mSelectedImages) {
-                if (useUniversal) {
-                    uriList.add(Uri.parse(mediaData.getPath()));
-                } else {
-                    uriList.add(mediaData.getContentUri());
+            if (ActionUtil.isSelected(action)) {
+                Intent intent = new Intent();
+                ArrayList<Uri> uriList = new ArrayList<>();
+                for (MediaData mediaData : mSelectedImages) {
+                    if (useUniversal) {
+                        uriList.add(Uri.parse(mediaData.getPath()));
+                    } else {
+                        uriList.add(mediaData.getContentUri());
+                    }
                 }
+                intent.putParcelableArrayListExtra(EXTRA_IMAGES_STR, uriList);
+                setResult(RESULT_OK, intent);
             }
-            intent.putParcelableArrayListExtra(EXTRA_IMAGES_STR, uriList);
-            setResult(RESULT_OK, intent);
             finish();
         }
     }
@@ -244,21 +263,28 @@ public class SelectPhotosActivity extends BaseActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void initView() {
-        Intent intent = getIntent();
-        // 是否为同时添加多张图片
-        multi = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-        useUniversal = intent.getBooleanExtra(MediaData.EXTRA_USE_UNIVERSAL, false);
-        useVideo = intent.getBooleanExtra(MediaData.USE_VIDEO_AVAILABLE, false);
-        // 总共需要添加的图片数量
-        //        residue = intent.getIntExtra(EXTRA_RESIDUE, 10);
         fragment.setSelectImageUirListener(listener);
-        ArrayList<Uri> uris = intent.getParcelableArrayListExtra(EXTRA_SELECTED_PHOTOS);
-        mSelectedImages.clear();
-        if (uris != null) {
-            for (Uri uri : uris) {
-                MediaData mediaData = new MediaData(uri, uri.toString(), MediaData.TYPE_IMAGE, 0);
-                mSelectedImages.add(mediaData);
+
+        Intent intent = getIntent();
+        action = intent.getAction();
+        if (ActionUtil.isSelected(action)) {
+            // 是否为同时添加多张图片
+            multi = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+            useUniversal = intent.getBooleanExtra(MediaData.EXTRA_USE_UNIVERSAL, false);
+            useVideo = intent.getBooleanExtra(MediaData.USE_VIDEO_AVAILABLE, false);
+            // 总共需要添加的图片数量
+            //        residue = intent.getIntExtra(EXTRA_RESIDUE, 10);
+            ArrayList<Uri> uris = intent.getParcelableArrayListExtra(EXTRA_SELECTED_PHOTOS);
+            mSelectedImages.clear();
+            if (uris != null) {
+                for (Uri uri : uris) {
+                    MediaData mediaData = new MediaData(uri, uri.toString(), MediaData.TYPE_IMAGE, 0);
+                    mSelectedImages.add(mediaData);
+                }
             }
+        } else {
+            // action为空
+            Log.i(TAG, "initView& action is null");
         }
     }
 

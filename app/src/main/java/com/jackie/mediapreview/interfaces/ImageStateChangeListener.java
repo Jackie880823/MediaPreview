@@ -11,7 +11,7 @@ import com.jackie.mediapreview.entity.MediaData;
 /**
  * 选中图片改变监听
  */
-public interface SelectImageUirChangeListener {
+public interface ImageStateChangeListener {
     /**
      * 添加图片{@code mediaData}到选择列表
      *

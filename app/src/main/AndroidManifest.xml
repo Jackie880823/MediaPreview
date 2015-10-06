@@ -17,6 +17,7 @@
                 <action android:name="android.intent.action.PICK" />
 
                 <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

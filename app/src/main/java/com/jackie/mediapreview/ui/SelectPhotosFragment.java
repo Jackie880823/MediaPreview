@@ -25,7 +25,8 @@ import android.widget.RelativeLayout;
 import com.jackie.mediapreview.R;
 import com.jackie.mediapreview.adapter.LocalMediaAdapter;
 import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.interfaces.SelectImageUirChangeListener;
+import com.jackie.mediapreview.interfaces.ImageStateChangeListener;
+import com.jackie.mediapreview.utils.ActionUtil;
 import com.jackie.mediapreview.utils.MessageUtil;
 import com.jackie.mediapreview.widget.CustomGridView;
 import com.jackie.mediapreview.widget.DrawerArrowDrawable;
@@ -71,6 +72,8 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
      * <p>false: 只允许选择一张图片</p>
      */
     private boolean multi;
+
+    private String action;
 
     /**
      * 已经选择的图Ur列表
@@ -137,7 +140,6 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
 
     @SuppressLint("ValidFragment")
     public SelectPhotosFragment(ArrayList<MediaData> selectUris) {
-        super();
         mSelectedImageUris = selectUris;
     }
 
@@ -160,13 +162,10 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
         loading = getViewById(R.id.ncl_loading);
         loading.start();
 
-        multi = getParentActivity().getIntent().getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-        boolean useVideo = getParentActivity().getIntent().getBooleanExtra(MediaData.USE_VIDEO_AVAILABLE, false);
-
-        // 获取数据库中的图片资源游标
-//        String[] imageColumns = {MediaStore.Images.Thumbnails.DATA, MediaStore.Images.Thumbnails._ID};
-//        String imageOrderBy = MediaStore.Images.Thumbnails.DEFAULT_SORT_ORDER ;
-//        imageCursor = new CursorLoader(getActivity(), MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, imageColumns, null, null, imageOrderBy).loadInBackground();
+        Intent intent = getParentActivity().getIntent();
+        action = intent.getAction();
+        multi = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+        boolean useVideo = intent.getBooleanExtra(MediaData.USE_VIDEO_AVAILABLE, true);
 
         String[] imageColumns = {MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID};
         String imageOrderBy = MediaStore.Images.Media.DATE_ADDED + " DESC";
@@ -261,7 +260,7 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
 
                 if (selectImageUirListener != null) {
                     MediaData itemUri = mImageUriList.get(position);
-                    if (multi) {
+                    if (multi || !ActionUtil.isSelected(action)) {
                         selectImageUirListener.preview(itemUri);
                     } else {
                         selectImageUirListener.addUri(itemUri);
@@ -328,13 +327,6 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
                             MediaData mediaData = new MediaData(contentUri, path, MediaData.TYPE_IMAGE, 0);
                             mediaData.setThumbnailUri(getImageThumbnailUri(id));
                             addToMediaMap(bucket, mediaData);
-                            //wing
-//                            int id = imageCursor.getInt(uriColumnIndex);
-//                            BitmapFactory.Options options = new BitmapFactory.Options();
-//                            options.inDither = false;
-//                            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//                            imageCursor = new CursorLoader(getActivity(), MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, imageColumns, null, null, imageOrderBy).loadInBackground();
-//                            info.b = MediaStore.Video.Thumbnails.getContentUri()getThumbnail(getActivity().getContentResolver(), id,  MediaStore.Images.Thumbnails.MICRO_KIND, options);
                         }
                     }
                     imageCursor.close();
@@ -414,9 +406,11 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
             cursor.moveToFirst();
 
             String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
+            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Thumbnails._ID));
             File file = new File(path);
             if (file.exists() && !file.isDirectory() && file.canRead()) {
-                result = Uri.parse(ImageDownloader.Scheme.FILE.wrap(path));
+//                result = Uri.parse(ImageDownloader.Scheme.FILE.wrap(path));
+                result = Uri.parse(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI.toString() + File.separator + id);
             }
         }
 
@@ -587,9 +581,9 @@ public class SelectPhotosFragment extends BaseFragment<SelectPhotosActivity> {
 
     }
 
-    private SelectImageUirChangeListener selectImageUirListener;
+    private ImageStateChangeListener selectImageUirListener;
 
-    public void setSelectImageUirListener(SelectImageUirChangeListener selectImageUirListener) {
+    public void setSelectImageUirListener(ImageStateChangeListener selectImageUirListener) {
         this.selectImageUirListener = selectImageUirListener;
     }
 

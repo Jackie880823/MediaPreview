@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.jackie.mediapreview.R;
 import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.interfaces.SelectImageUirChangeListener;
+import com.jackie.mediapreview.interfaces.ImageStateChangeListener;
 import com.jackie.mediapreview.utils.UniversalImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -56,7 +56,7 @@ public class LocalMediaAdapter extends BaseAdapter {
      */
     private ArrayList<MediaData> mSelectMedias;
 
-    private SelectImageUirChangeListener mListener;
+    private ImageStateChangeListener mListener;
 
 
     public static String formatDuration(String durationStr) {
@@ -142,7 +142,7 @@ public class LocalMediaAdapter extends BaseAdapter {
         mSelectMedias = selectedMedias;
     }
 
-    public void setListener(SelectImageUirChangeListener listener) {
+    public void setListener(ImageStateChangeListener listener) {
         this.mListener = listener;
     }
 
