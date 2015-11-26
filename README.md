@@ -10,7 +10,7 @@
     startActivityForResult(intent, 1);
 
 
-###主界面为显示手机中所存的所有
+###主界面为显示手机中所存的图片
 
 ![image](./images/images_grid_view.png)
 
