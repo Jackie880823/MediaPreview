@@ -40,10 +40,6 @@ public class SelectPhotosActivity extends BaseActivity {
     public final static String EXTRA_RESIDUE = "residue";
 
     //    public static final String EXTRA_SELECTED_PHOTOS = "selected_photos";
-    /**
-     * 限制最多可选图片张数
-     */
-    public final static int MAX_SELECT = 10;
 
     private SelectPhotosFragment fragment;
     private ArrayList<MediaData> mSelectedImages = new ArrayList<>();
@@ -70,11 +66,12 @@ public class SelectPhotosActivity extends BaseActivity {
     /**
      * 请求多张图片数量
      */
-    //    private int residue;
+    private int residue = Integer.MAX_VALUE;
     /**
      * 当前是否为浏览状态标识位
      */
     private boolean isPreview = false;
+
     /**
      * 当前选择的媒体数据
      */
@@ -107,12 +104,12 @@ public class SelectPhotosActivity extends BaseActivity {
                 Log.i(TAG, "addUri& uri path: " + mediaData.getPath());
                 if (multi) {
                     //                    if(mSelectedImages.size() < residue) {
-                    if (mSelectedImages.size() < MAX_SELECT) {
+                    if (mSelectedImages.size() < residue) {
                         // 没有超过限制的图片数量可以继续添加并返回添加结果的返回值
                         result = mSelectedImages.contains(mediaData) || mSelectedImages.add(mediaData);
                     } else {
                         // 提示用户添加的图片超过限制的数量
-                        MessageUtil.showMessage(SelectPhotosActivity.this, String.format(SelectPhotosActivity.this.getString(R.string.select_too_many), MAX_SELECT));
+                        MessageUtil.showMessage(SelectPhotosActivity.this, String.format(SelectPhotosActivity.this.getString(R.string.select_too_many), residue));
                     }
                 } else {
                     // 不是同时添加多张图片，添加完成关闭当前Activity
@@ -273,7 +270,7 @@ public class SelectPhotosActivity extends BaseActivity {
             useUniversal = intent.getBooleanExtra(MediaData.EXTRA_USE_UNIVERSAL, false);
             useVideo = intent.getBooleanExtra(MediaData.USE_VIDEO_AVAILABLE, false);
             // 总共需要添加的图片数量
-            //        residue = intent.getIntExtra(EXTRA_RESIDUE, 10);
+            residue = intent.getIntExtra(EXTRA_RESIDUE, residue);
             ArrayList<Uri> uris = intent.getParcelableArrayListExtra(EXTRA_SELECTED_PHOTOS);
             mSelectedImages.clear();
             if (uris != null) {

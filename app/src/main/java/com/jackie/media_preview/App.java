@@ -11,6 +11,7 @@ import com.jackie.media_preview.utils.UniversalImageLoaderUtil;
  * @version 1.0
  */
 public class App extends Application {
+    public static Application instance;
     /**
      * Called when the application is starting, before any activity, service,
      * or receiver objects (excluding content providers) have been created.
@@ -23,6 +24,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         UniversalImageLoaderUtil.initImageLoader(this);
     }
 }

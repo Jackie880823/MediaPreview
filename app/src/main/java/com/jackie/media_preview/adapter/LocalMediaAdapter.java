@@ -191,9 +191,22 @@ public class LocalMediaAdapter extends BaseAdapter {
         msg.arg1 = position;
         mHandler.sendMessage(msg);
 
+
+        MediaData mediaData = mDatas.get(position);
+        if (MediaData.TYPE_VIDEO.equals(mediaData.getType())) {
+            holder.llDuration.setVisibility(View.VISIBLE);
+            holder.videoIcon.setVisibility(View.VISIBLE);
+            long duration = mediaData.getDuration();
+            holder.tvDuration.setText(formatDuration(duration));
+        } else {
+            holder.llDuration.setVisibility(View.GONE);
+            holder.videoIcon.setVisibility(View.GONE);
+        }
+
         if (!checkBoxVisible) {
             holder.check.setVisibility(View.GONE);
         } else {
+
             holder.iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -202,17 +215,6 @@ public class LocalMediaAdapter extends BaseAdapter {
                     }
                 }
             });
-
-            MediaData mediaData = mDatas.get(position);
-            if (MediaData.TYPE_VIDEO.equals(mediaData.getType())) {
-                holder.llDuration.setVisibility(View.VISIBLE);
-                holder.videoIcon.setVisibility(View.VISIBLE);
-                long duration = mediaData.getDuration();
-                holder.tvDuration.setText(formatDuration(duration));
-            } else {
-                holder.llDuration.setVisibility(View.GONE);
-                holder.videoIcon.setVisibility(View.GONE);
-            }
 
             // 需要显示选择框，并显设置点击监听事件
             holder.check.setVisibility(View.VISIBLE);
@@ -316,6 +318,8 @@ public class LocalMediaAdapter extends BaseAdapter {
                         String contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI.toString() + File.separator + imageId;
                         ImageLoader.getInstance().displayImage(contentUri, (ImageView) view, UniversalImageLoaderUtil.options);
                     }
+                } catch (Exception e){
+                  Log.w(TAG, "");
                 } finally {
                     if (cursor != null && !cursor.isClosed()) {
                         cursor.close();
