@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.widget;
+package com.jackie.media_preview.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,7 +10,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
-import com.jackie.mediapreview.R;
+import com.jackie.media_preview.R;
 
 /**
  * Created on 9/16/15.

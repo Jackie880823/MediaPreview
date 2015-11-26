@@ -1,9 +1,9 @@
-package com.jackie.mediapreview.entity;
+package com.jackie.media_preview.entity;
 
 import android.content.Intent;
 import android.net.Uri;
 
-import com.jackie.mediapreview.ui.SelectPhotosFragment;
+import com.jackie.media_preview.ui.SelectPhotosFragment;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 /**

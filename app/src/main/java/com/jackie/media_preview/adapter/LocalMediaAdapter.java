@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.adapter;
+package com.jackie.media_preview.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -22,10 +22,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jackie.mediapreview.R;
-import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.interfaces.ImageStateChangeListener;
-import com.jackie.mediapreview.utils.UniversalImageLoaderUtil;
+import com.jackie.media_preview.R;
+import com.jackie.media_preview.entity.MediaData;
+import com.jackie.media_preview.interfaces.ImageStateChangeListener;
+import com.jackie.media_preview.utils.UniversalImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;

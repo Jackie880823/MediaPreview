@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.interfaces;
+package com.jackie.media_preview.interfaces;
 
 /**
  * Created by Jackie Zhu on 7/14/15.
@@ -6,7 +6,7 @@ package com.jackie.mediapreview.interfaces;
 
 import android.graphics.drawable.Drawable;
 
-import com.jackie.mediapreview.entity.MediaData;
+import com.jackie.media_preview.entity.MediaData;
 
 /**
  * 选中图片改变监听

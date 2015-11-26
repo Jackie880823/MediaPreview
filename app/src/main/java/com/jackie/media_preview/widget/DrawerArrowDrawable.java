@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jackie.mediapreview.widget;
+package com.jackie.media_preview.widget;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;

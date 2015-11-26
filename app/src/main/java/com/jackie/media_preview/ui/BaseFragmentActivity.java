@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.ui;
+package com.jackie.media_preview.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 
-import com.jackie.mediapreview.R;
+import com.jackie.media_preview.R;
 
 /**
  * fragmentActivity 基类

@@ -1,8 +1,8 @@
-package com.jackie.mediapreview;
+package com.jackie.media_preview;
 
 import android.app.Application;
 
-import com.jackie.mediapreview.utils.UniversalImageLoaderUtil;
+import com.jackie.media_preview.utils.UniversalImageLoaderUtil;
 
 /**
  * Created 9/24/15.

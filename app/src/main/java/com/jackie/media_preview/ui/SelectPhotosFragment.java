@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.ui;
+package com.jackie.media_preview.ui;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -22,15 +22,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.jackie.mediapreview.R;
-import com.jackie.mediapreview.adapter.LocalMediaAdapter;
-import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.interfaces.ImageStateChangeListener;
-import com.jackie.mediapreview.utils.ActionUtil;
-import com.jackie.mediapreview.utils.MessageUtil;
-import com.jackie.mediapreview.widget.CustomGridView;
-import com.jackie.mediapreview.widget.DrawerArrowDrawable;
-import com.jackie.mediapreview.widget.NewtonCradleLoading;
+import com.jackie.media_preview.R;
+import com.jackie.media_preview.adapter.LocalMediaAdapter;
+import com.jackie.media_preview.entity.MediaData;
+import com.jackie.media_preview.interfaces.ImageStateChangeListener;
+import com.jackie.media_preview.utils.ActionUtil;
+import com.jackie.media_preview.utils.MessageUtil;
+import com.jackie.media_preview.widget.CustomGridView;
+import com.jackie.media_preview.widget.DrawerArrowDrawable;
+import com.jackie.media_preview.widget.NewtonCradleLoading;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 import java.io.File;

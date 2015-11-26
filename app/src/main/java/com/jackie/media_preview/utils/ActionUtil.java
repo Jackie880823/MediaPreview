@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.utils;
+package com.jackie.media_preview.utils;
 
 import android.content.Intent;
 

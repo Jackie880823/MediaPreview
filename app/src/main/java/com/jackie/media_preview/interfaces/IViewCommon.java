@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.interfaces;
+package com.jackie.media_preview.interfaces;
 
 import android.view.View;
 

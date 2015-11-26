@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.ui;
+package com.jackie.media_preview.ui;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jackie.mediapreview.interfaces.IViewCommon;
+import com.jackie.media_preview.interfaces.IViewCommon;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.ui;
+package com.jackie.media_preview.ui;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.jackie.mediapreview.R;
-import com.jackie.mediapreview.entity.MediaData;
-import com.jackie.mediapreview.utils.UniversalImageLoaderUtil;
+import com.jackie.media_preview.R;
+import com.jackie.media_preview.entity.MediaData;
+import com.jackie.media_preview.utils.UniversalImageLoaderUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**

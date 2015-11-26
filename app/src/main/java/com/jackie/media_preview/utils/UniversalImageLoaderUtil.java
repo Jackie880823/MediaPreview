@@ -1,9 +1,9 @@
-package com.jackie.mediapreview.utils;
+package com.jackie.media_preview.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.jackie.mediapreview.R;
+import com.jackie.media_preview.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

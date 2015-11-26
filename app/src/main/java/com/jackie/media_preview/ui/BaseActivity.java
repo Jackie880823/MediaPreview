@@ -1,8 +1,6 @@
-package com.jackie.mediapreview.ui;
+package com.jackie.media_preview.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jackie.mediapreview.R;
-import com.jackie.mediapreview.interfaces.IViewCommon;
+import com.jackie.media_preview.R;
+import com.jackie.media_preview.interfaces.IViewCommon;
 
 /**
  * activity基类

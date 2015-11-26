@@ -1,4 +1,4 @@
-package com.jackie.mediapreview.widget;
+package com.jackie.media_preview.widget;
 
 import android.content.Context;
 import android.os.Build;
